@@ -1,0 +1,32 @@
+# dependencies
+node_modules/
+
+# cypress output
+cypress/screenshots/
+cypress/videos/
+cypress/downloads/
+
+# reports
+allure-results/
+allure-report/
+
+# code coverage
+.nyc_output/
+coverage/
+
+# local environment configs (only demo.json and *.example.* are committed)
+config/environments/*.json
+config/environments/*.db.js
+!config/environments/demo.json
+!config/environments/*.example.json
+!config/environments/*.db.example.js
+
+# os / editor
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.log
+
+# Claude Code local settings
+.claude/

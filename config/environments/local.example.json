@@ -1,0 +1,8 @@
+{
+  "baseUrl": "http://localhost:4200",
+  "apiBaseUrl": "http://localhost:3000",
+  "env": {
+    "username": "TODO_test-user@example.com",
+    "password": "TODO_password"
+  }
+}

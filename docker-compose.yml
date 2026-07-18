@@ -1,0 +1,42 @@
+# Containerized runner — reproducible Cypress across dev machines and CI, plus
+# an optional SQL Server for the DB module (docs/DATABASE-MODULE.md).
+#
+#   docker compose run --rm cypress                 # demo suite (waits for mssql)
+#   docker compose run --rm --no-deps cypress       # demo suite, skip the DB service
+#   docker compose run --rm cypress npm run run:local   # against config/environments/local.json
+#
+# For DB-backed tests, point config/environments/<version>.db.js at
+#   server: 'mssql'   (this compose service name)  password: env MSSQL_SA_PASSWORD.
+
+services:
+  cypress:
+    build: .
+    depends_on:
+      mssql:
+        condition: service_healthy
+    volumes:
+      # Surface results and screenshots back onto the host.
+      - ./allure-results:/app/allure-results
+      - ./cypress/screenshots:/app/cypress/screenshots
+    command: npm test
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: 'Y'
+      MSSQL_PID: Developer
+      # Override in a local .env file — never commit a real password.
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD:-Your_strong_Passw0rd}
+    ports:
+      - '1433:1433'
+    healthcheck:
+      # 2022 image ships sqlcmd under mssql-tools18; -C trusts the self-signed cert.
+      test:
+        [
+          'CMD-SHELL',
+          '/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$$MSSQL_SA_PASSWORD" -C -Q "SELECT 1" || exit 1'
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s

@@ -1,0 +1,24 @@
+{
+  // Lives in cypress/ (not the repo root) on purpose: it scopes the Cypress +
+  // Node types to test code, and the webpack preprocessor picks it up per spec.
+  "compilerOptions": {
+    "target": "es2021",
+    "lib": ["es2021", "dom"],
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "types": ["cypress", "node"],
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    // Layer aliases — imports never depend on folder depth. The runtime side is
+    // wired in cypress.config.ts via the batteries-included preprocessor, which
+    // reads the "paths" below through tsconfig-paths-webpack-plugin.
+    "baseUrl": ".",
+    "paths": {
+      "@core/*": ["core/*"],
+      "@app/*": ["app/*"]
+    }
+  },
+  "include": ["**/*.ts", "../cypress.config.ts"]
+}
