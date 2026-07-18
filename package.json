@@ -17,8 +17,12 @@
     "node": ">=20"
   },
   "scripts": {
-    "test": "cypress run --env version=demo",
-    "cy:open": "cypress open --env version=demo",
+    "demo:serve": "node scripts/demo-server.mjs",
+    "cy:run:demo": "cypress run --env version=demo",
+    "cy:open:demo": "cypress open --env version=demo",
+    "test": "start-server-and-test demo:serve http://localhost:5188 cy:run:demo",
+    "test:ci": "start-server-and-test demo:serve http://localhost:5188 \"cypress run --env version=demo --browser chrome\"",
+    "cy:open": "start-server-and-test demo:serve http://localhost:5188 cy:open:demo",
     "open:local": "cypress open --env version=local",
     "run:local": "cypress run --env version=local",
     "run:spec": "cypress run --env version=local --spec",
@@ -64,6 +68,7 @@
     "lint-staged": "^16.4.0",
     "nyc": "^18.0.0",
     "prettier": "^3.9.5",
+    "start-server-and-test": "^3.0.11",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.64.0",
     "zod": "^4.4.3"

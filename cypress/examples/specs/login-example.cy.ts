@@ -1,5 +1,5 @@
 /**
- * EXAMPLE — login flow against the public demo site (demo environment).
+ * EXAMPLE — login flow against the bundled local demo app (demo environment).
  *
  * Demonstrates: page-object delegation, credentials read with the async
  * cy.env command through ENV_KEY (values from config/environments/demo.json;

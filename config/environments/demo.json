@@ -1,6 +1,6 @@
 {
-  "baseUrl": "https://the-internet.herokuapp.com",
-  "apiBaseUrl": "https://jsonplaceholder.cypress.io",
+  "baseUrl": "http://localhost:5188",
+  "apiBaseUrl": "http://localhost:5188/api",
   "env": {
     "username": "tomsmith",
     "password": "SuperSecretPassword!"

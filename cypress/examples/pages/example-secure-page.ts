@@ -2,7 +2,7 @@ import UIElementsHandler from '@core/ui/ui-elements-handler'
 
 /**
  * EXAMPLE — the page users land on after a successful demo login
- * (https://the-internet.herokuapp.com/secure).
+ * (demo/app/secure.html).
  */
 export default class ExampleSecurePage {
     static locators = {

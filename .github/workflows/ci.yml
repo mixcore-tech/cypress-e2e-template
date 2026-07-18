@@ -54,9 +54,11 @@ jobs:
       # cypress-io/github-action handles npm ci, Cypress binary caching and xvfb.
       - uses: cypress-io/github-action@v6
         with:
-          # browser is passed through the command; the action's own `browser`
-          # input is ignored whenever a custom `command` is supplied.
-          command: npm test -- --browser chrome # demo environment — public site, no secrets needed
+          # test:ci starts the bundled demo server (start-server-and-test), runs
+          # Cypress against it in Chrome, and stops it. The browser is baked into
+          # the script — do NOT append `-- --browser`, which would attach to
+          # start-server-and-test rather than Cypress.
+          command: npm run test:ci # bundled local demo app — deterministic, no third-party site
       # Each shard's Allure results are collected under a unique name so the
       # report job can merge all shards. Always upload — the report wants the
       # failures too.

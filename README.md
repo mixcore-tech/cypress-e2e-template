@@ -5,6 +5,7 @@
 [![Cypress](https://img.shields.io/badge/Cypress-15-17202C?logo=cypress&logoColor=white)](https://www.cypress.io/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Node](https://img.shields.io/badge/Node-20%2B-339933?logo=node.js&logoColor=white)](.nvmrc)
+[![AI-agent ready](https://img.shields.io/badge/AI--agent-ready-8A2BE2)](AGENTS.md)
 
 A framework-agnostic **Cypress 15 + TypeScript** end-to-end test template by [Mixcore Tech](http://mixcore-tech.com/), built for developers — you write specs and page objects; the framework layers are done.
 
@@ -12,8 +13,21 @@ A framework-agnostic **Cypress 15 + TypeScript** end-to-end test template by [Mi
 - **API-first testing** — token-based login command (no UI login in feature specs), intercept-and-assert on real API calls, typed payload factories
 - **Table verification engine** — assert whole table rows with a single `ITableValidationPair`
 - **Allure reporting** built in, plus an **optional SQL Server module** (off by default) for DB verification/cleanup
+- **Deterministic, self-hosted demo** — `npm test` runs against a bundled local app (no third-party sites), so it's green offline and never breaks because someone else changed their UI
 
-Docs: [Architecture](docs/ARCHITECTURE.md) · [Adding a feature test](docs/ADDING-A-FEATURE-TEST.md) (the cookbook) · [Database module](docs/DATABASE-MODULE.md) · [Best practices](docs/BEST-PRACTICES.md) · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
+Docs: [Architecture](docs/ARCHITECTURE.md) · [Adding a feature test](docs/ADDING-A-FEATURE-TEST.md) (the cookbook) · [Database module](docs/DATABASE-MODULE.md) · [Best practices](docs/BEST-PRACTICES.md) · [Agent guide](AGENTS.md) · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
+
+## Built for AI agents
+
+Most Cypress templates are a pile of files an AI agent can wander through and
+quietly break. This one is designed to be extended safely by coding agents —
+Claude Code, Cursor, Copilot, Windsurf, Aider, or any other — with **no
+tool-specific config**. A single vendor-neutral [`AGENTS.md`](AGENTS.md) is the
+contract, and the architecture is **machine-enforced**: the layer boundaries, the
+"no bare `cy.get`", the "no `cy.wait(ms)`", and the strict types are all ESLint /
+TypeScript **errors**, and CI re-generates a scaffolded feature to prove the
+generator still holds. An agent's mistake fails `lint`/`typecheck`/CI before it
+can merge — so agent-driven changes can't silently erode the design.
 
 ## Prerequisites
 
@@ -28,7 +42,7 @@ Docs: [Architecture](docs/ARCHITECTURE.md) · [Adding a feature test](docs/ADDIN
 # 1. Get the code ("Use this template" on GitHub, or clone)
 nvm use && npm install
 
-# 2. Prove your machine works — runs the demo suite against a public site
+# 2. Prove your machine works — boots a bundled local app and runs the demo suite
 npm test
 
 # 3. Watch the same specs interactively
@@ -44,7 +58,7 @@ If step 2 is green, your setup works. Everything after this is wiring the templa
 
 | Script                                                  | What it does                                                                                                                                 |
 | ------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `npm test`                                              | Run the demo example suite headless (public site, zero setup)                                                                                |
+| `npm test`                                              | Boot the bundled local demo app and run the demo example suite headless (deterministic, zero setup)                                          |
 | `npm run cy:open`                                       | Open the interactive runner on the demo environment                                                                                          |
 | `npm run open:local` / `npm run run:local`              | Open / run against YOUR app (`config/environments/local.json`)                                                                               |
 | `npm run run:spec -- <path>`                            | Run a single spec against YOUR app (local env), e.g. `npm run run:spec -- cypress/e2e/login.cy.ts` (use `run:spec:demo` for an example spec) |
@@ -65,10 +79,11 @@ cypress/
   app/                 YOUR layer: app-selectors.ts, env-keys.ts, urls.ts + your pages/api/helpers
   support/             Cypress bootstrap: commands (apiRequest, login, optional db), type augmentation
   e2e/                 YOUR specs (scaffold output lands here; group them per feature folder)
-  examples/            runnable demos against a public site — delete this folder when done with it
+  examples/            runnable demos against the bundled local app — delete this folder when done with it
   templates/           fill-in skeletons the scaffold copies — never run, always type-checked
   fixtures/            static test data (mirror your feature folders as it grows)
-scripts/               scaffold.mjs + doctor.mjs
+demo/app/              the bundled demo web app the examples run against (delete with examples/)
+scripts/               scaffold.mjs + doctor.mjs + demo-server.mjs
 docs/                  architecture, cookbook, DB module, best practices
 ```
 

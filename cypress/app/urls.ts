@@ -7,7 +7,7 @@ const apiBaseUrl = Cypress.config('apiBaseUrl')
  * templates and scaffold output reference URLs.* entries, never local constants.
  */
 export const URLs = {
-    /** Used by the runnable API examples (public JSONPlaceholder demo API). */
+    /** Used by the runnable API examples (the bundled local demo API — see demo/app). */
     usersApi: `${apiBaseUrl}/users`,
     postsApi: `${apiBaseUrl}/posts`,
 

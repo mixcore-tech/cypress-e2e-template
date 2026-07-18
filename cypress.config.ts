@@ -56,9 +56,12 @@ export default defineConfig({
         viewportHeight: 1050,
         experimentalRunAllSpecs: true,
         experimentalMemoryManagement: true,
-        // Element queries wait up to 30s — the core handlers rely on this single
+        // Element queries wait up to 10s — the core handlers rely on this single
         // knob instead of threading per-call timeouts through every signature.
-        defaultCommandTimeout: 30000,
+        // Kept modest on purpose: a large global timeout hides slow selectors and
+        // race conditions. Bump per-app in a local env if a genuinely slow app
+        // needs it; the loader wait already allows longer (TIMEOUT.oneMin).
+        defaultCommandTimeout: 10000,
         // Template code never reads Cypress.env() in the browser (deprecated,
         // removed in a future Cypress major) — lint-enforced: specs use the
         // async cy.env command, runtime data goes through Cypress.expose.

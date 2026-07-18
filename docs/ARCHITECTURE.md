@@ -119,7 +119,7 @@ When the engine genuinely needs a change, treat it like a framework PR: everyone
 
 Every pattern exists twice on purpose:
 
-- `cypress/examples/**` — **runnable** proof against a public site (`npm test`); read these to see a pattern working.
+- `cypress/examples/**` — **runnable** proof against the bundled local demo app (`npm test`); read these to see a pattern working.
 - `cypress/templates/**` — **fill-in** skeletons with `TODO(template)` markers; the scaffold copies these for your features. They are type-checked on every `npm run typecheck` but excluded from `specPattern`, so they never pollute the runner.
 
 Template files carry a `.template.ts` / `.template.cy.ts` marker in their names — with one deliberate exception: the type skeletons (`feature-payload.d.ts`, `feature-response.d.ts`) stay plain `.d.ts`, because a `.template.d.ts` name would stop TypeScript from treating them as declaration files. The scaffold renames both kinds the same way.

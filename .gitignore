@@ -28,5 +28,8 @@ config/environments/*.db.js
 !.vscode/extensions.json
 *.log
 
-# Claude Code local settings
+# local AI-agent / editor settings (see AGENTS.md for the committed contract)
 .claude/
+.cursor/
+AGENTS.local.md
+CLAUDE.md

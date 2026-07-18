@@ -141,7 +141,22 @@ export default tseslint.config(
                 console: 'readonly',
                 process: 'readonly',
                 fetch: 'readonly',
-                AbortSignal: 'readonly'
+                AbortSignal: 'readonly',
+                URL: 'readonly'
+            }
+        }
+    },
+    {
+        // Static demo app (demo/app/*.js) — plain browser scripts, not modules.
+        files: ['demo/app/**/*.js'],
+        languageOptions: {
+            sourceType: 'script',
+            globals: {
+                document: 'readonly',
+                window: 'readonly',
+                fetch: 'readonly',
+                localStorage: 'readonly',
+                location: 'readonly'
             }
         }
     },

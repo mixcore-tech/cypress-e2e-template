@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Demo App — Tables</title>
+        <link rel="stylesheet" href="/styles.css" />
+    </head>
+    <body>
+        <main class="card">
+            <h1>Data Table</h1>
+            <table id="table1" data-cy="users-table">
+                <thead>
+                    <tr>
+                        <th>Last Name</th>
+                        <th>First Name</th>
+                        <th>Email</th>
+                        <th>Due</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-cy="row">
+                        <td data-cy="last-name">Smith</td>
+                        <td data-cy="first-name">John</td>
+                        <td data-cy="email">jsmith@gmail.com</td>
+                        <td data-cy="due">$50.00</td>
+                    </tr>
+                    <tr data-cy="row">
+                        <td data-cy="last-name">Bach</td>
+                        <td data-cy="first-name">Frank</td>
+                        <td data-cy="email">fbach@yahoo.com</td>
+                        <td data-cy="due">$51.00</td>
+                    </tr>
+                    <tr data-cy="row">
+                        <td data-cy="last-name">Doe</td>
+                        <td data-cy="first-name">Jason</td>
+                        <td data-cy="email">jdoe@hotmail.com</td>
+                        <td data-cy="due">$100.00</td>
+                    </tr>
+                    <tr data-cy="row">
+                        <td data-cy="last-name">Conway</td>
+                        <td data-cy="first-name">Tim</td>
+                        <td data-cy="email">tconway@earthlink.net</td>
+                        <td data-cy="due">$50.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+    </body>
+</html>

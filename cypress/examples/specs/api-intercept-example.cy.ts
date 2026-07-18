@@ -13,7 +13,7 @@ import ExampleNetworkPage from '../pages/example-network-page'
 
 describe('Example: API interception', () => {
     it('EX-8: assert on the response fired by a UI action', () => {
-        cy.visit('https://example.cypress.io/commands/network-requests')
+        ExampleNetworkPage.visit()
 
         const alias = DataGenerator.randomString()
         ApiHelper.interceptNetworkRequests('**/comments/*', HTTP_METHOD.get, alias)

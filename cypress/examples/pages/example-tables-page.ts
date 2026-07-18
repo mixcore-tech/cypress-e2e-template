@@ -2,8 +2,8 @@ import Navigator from '@core/navigation/navigator'
 import UITableHandler, { ColumnValuePair, ITableValidationPair } from '@core/ui/ui-table-handler'
 
 /**
- * EXAMPLE — table verification on a real public data table
- * (https://the-internet.herokuapp.com/tables, #table1).
+ * EXAMPLE — table verification on the bundled demo data table
+ * (demo/app/tables.html, #table1).
  *
  * Demonstrates: the tableColumnsHeaders map (spec code references headers by
  * key, never by magic string) and delegation to UITableHandler.
