@@ -96,7 +96,7 @@ jobs:
           java-version: '17'
       # Collect the per-shard results into a single allure-results directory.
       - name: Download Allure results from all shards
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           pattern: allure-results-*
           path: allure-results
