@@ -13,7 +13,7 @@ jobs:
   lint-and-typecheck:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
@@ -50,7 +50,7 @@ jobs:
       SPLIT: ${{ strategy.job-total }}
       SPLIT_INDEX: ${{ strategy.job-index }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       # cypress-io/github-action handles npm ci, Cypress binary caching and xvfb.
       - uses: cypress-io/github-action@v6
         with:
@@ -84,7 +84,7 @@ jobs:
     permissions:
       contents: write # peaceiris pushes the report to the gh-pages branch
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
@@ -103,7 +103,7 @@ jobs:
           merge-multiple: true
       # Pull the previous report's history so the trend graph is continuous.
       - name: Restore Allure history
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         continue-on-error: true
         with:
           ref: gh-pages
