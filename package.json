@@ -1,0 +1,76 @@
+{
+  "name": "cypress-e2e-template",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Framework-agnostic Cypress + TypeScript E2E template with page objects, table verification, API interception, Allure reporting and an optional SQL Server module",
+  "author": "Mixcore Tech (http://mixcore-tech.com/)",
+  "homepage": "http://mixcore-tech.com/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mixcore-tech/cypress-e2e-template.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mixcore-tech/cypress-e2e-template/issues"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "cypress run --env version=demo",
+    "cy:open": "cypress open --env version=demo",
+    "open:local": "cypress open --env version=local",
+    "run:local": "cypress run --env version=local",
+    "run:spec": "cypress run --env version=local --spec",
+    "run:spec:demo": "cypress run --env version=demo --spec",
+    "report:allure": "allure serve allure-results",
+    "report:allure:generate": "allure generate allure-results --clean -o allure-report",
+    "coverage:report": "nyc report --reporter=lcov --reporter=text-summary --report-dir coverage",
+    "scaffold": "node scripts/scaffold.mjs",
+    "doctor": "node scripts/doctor.mjs",
+    "typecheck": "tsc --noEmit -p cypress/tsconfig.json",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "todo": "grep -rn \"TODO(template)\" cypress config scripts || echo \"No TODO(template) markers left — you are done.\"",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{js,ts,mjs,cjs}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,yml,yaml,md}": [
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "@cypress/code-coverage": "^4.0.3",
+    "@cypress/webpack-batteries-included-preprocessor": "^4.2.0",
+    "@cypress/webpack-preprocessor": "^7.1.1",
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^22.20.1",
+    "allure-commandline": "^2.43.0",
+    "allure-cypress": "^3.10.2",
+    "axe-core": "^4.12.1",
+    "cypress": "^15.18.1",
+    "cypress-axe": "^1.7.0",
+    "cypress-split": "^1.25.0",
+    "cypress-sql-server": "^1.0.0",
+    "dayjs": "^1.11.21",
+    "eslint": "^10.7.0",
+    "eslint-plugin-cypress": "^6.4.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "nyc": "^18.0.0",
+    "prettier": "^3.9.5",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.64.0",
+    "zod": "^4.4.3"
+  },
+  "overrides": {
+    "@cypress/webpack-batteries-included-preprocessor": {
+      "@cypress/webpack-preprocessor": "$@cypress/webpack-preprocessor"
+    }
+  }
+}

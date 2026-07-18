@@ -1,0 +1,146 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-and-typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      # Fail the gate on known high/critical CVEs in the dependency tree.
+      # Dependabot (.github/dependabot.yml) keeps deps patched; this catches
+      # anything that lands between its PRs.
+      - run: npm audit --audit-level=high
+
+      # Scaffold guard — the generator must never silently break: create a
+      # nested probe feature, then prove the generated code passes the same
+      # typecheck and lint (incl. the layer-contract rules) as hand-written
+      # code. The workspace is ephemeral, so no cleanup is needed.
+      - name: Scaffold probe feature
+        run: npm run scaffold -- ci-probe/ci-probe
+      - name: Typecheck and lint scaffold output
+        run: npm run typecheck && npm run lint
+
+  # Run the suite across N containers. cypress-split (wired in cypress.config.ts)
+  # reads SPLIT / SPLIT_INDEX and hands each container an even slice of the specs,
+  # so wall-clock stays flat as the suite grows. Add shards to the matrix to scale.
+  e2e-demo:
+    needs: lint-and-typecheck
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3]
+    env:
+      # cypress-split uses these to pick this container's slice (0-based index).
+      SPLIT: ${{ strategy.job-total }}
+      SPLIT_INDEX: ${{ strategy.job-index }}
+    steps:
+      - uses: actions/checkout@v4
+      # cypress-io/github-action handles npm ci, Cypress binary caching and xvfb.
+      - uses: cypress-io/github-action@v6
+        with:
+          # browser is passed through the command; the action's own `browser`
+          # input is ignored whenever a custom `command` is supplied.
+          command: npm test -- --browser chrome # demo environment — public site, no secrets needed
+      # Each shard's Allure results are collected under a unique name so the
+      # report job can merge all shards. Always upload — the report wants the
+      # failures too.
+      - name: Upload Allure results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results-${{ matrix.shard }}
+          path: allure-results
+          retention-days: 7
+      - name: Upload failure screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots-${{ matrix.shard }}
+          path: cypress/screenshots
+          retention-days: 7
+
+  # Merge every shard's Allure results into one trend report and publish it to
+  # GitHub Pages, so stakeholders always have a live dashboard with history.
+  allure-report:
+    needs: e2e-demo
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # peaceiris pushes the report to the gh-pages branch
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      # Collect the per-shard results into a single allure-results directory.
+      - name: Download Allure results from all shards
+        uses: actions/download-artifact@v4
+        with:
+          pattern: allure-results-*
+          path: allure-results
+          merge-multiple: true
+      # Pull the previous report's history so the trend graph is continuous.
+      - name: Restore Allure history
+        uses: actions/checkout@v4
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+      - name: Seed history into results
+        run: |
+          mkdir -p allure-results/history
+          if [ -d gh-pages/history ]; then cp -r gh-pages/history/. allure-results/history/; fi
+      - name: Generate Allure report
+        run: npx allure generate allure-results --clean -o allure-report
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: allure-report
+          retention-days: 14
+      # Publish only from main — PR builds still produce the artifact above but
+      # must not overwrite the shared dashboard (and forks can't push anyway).
+      - name: Publish to GitHub Pages
+        if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: allure-report
+
+  # --- Adapting this workflow to YOUR app ---------------------------------
+  # 1. Store your CI environment file in a repo secret named CYPRESS_ENV_JSON
+  #    (the full JSON body of config/environments/ci.json), then in e2e-demo add
+  #    BEFORE the cypress-io/github-action step:
+  #
+  #      - name: Write CI environment file
+  #        run: printf '%s' "$CYPRESS_ENV_JSON" > config/environments/ci.json
+  #        env:
+  #          CYPRESS_ENV_JSON: ${{ secrets.CYPRESS_ENV_JSON }}
+  #
+  #    ...and change the command to:  npx cypress run --env version=ci --browser chrome
+  #
+  # 2. Enable the Pages dashboard once per repo: Settings → Pages → Source =
+  #    "Deploy from a branch" → branch "gh-pages". The URL then serves the
+  #    latest Allure trend report after every push to main.

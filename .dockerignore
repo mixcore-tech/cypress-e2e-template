@@ -1,0 +1,12 @@
+node_modules
+allure-results
+allure-report
+.nyc_output
+coverage
+cypress/screenshots
+cypress/videos
+cypress/downloads
+gh-pages
+.git
+.github
+*.log

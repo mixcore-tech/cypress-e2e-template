@@ -1,0 +1,26 @@
+# Code ownership — GitHub requests a review from the owner on any PR touching
+# these paths, and (with branch protection "Require review from Code Owners")
+# blocks merge until they approve.
+#
+# Owner: the @mixcore-tech/framework-architects team (http://mixcore-tech.com/).
+# Enable "Require review from Code Owners" in branch protection to enforce it.
+
+# The engine: no one changes the framework without an architect's review —
+# every squad's suite depends on it.
+/cypress/core/**            @mixcore-tech/framework-architects
+
+# The contracts that keep the layering honest and the build reproducible.
+/eslint.config.mjs          @mixcore-tech/framework-architects
+/cypress.config.ts          @mixcore-tech/framework-architects
+/cypress/tsconfig.json      @mixcore-tech/framework-architects
+/package.json               @mixcore-tech/framework-architects
+
+# The scaffold sources + generator: changing these changes what every new
+# feature test starts from.
+/cypress/templates/**       @mixcore-tech/framework-architects
+/scripts/**                 @mixcore-tech/framework-architects
+
+# CI / infra.
+/.github/**                 @mixcore-tech/framework-architects
+/Dockerfile                 @mixcore-tech/framework-architects
+/docker-compose.yml         @mixcore-tech/framework-architects

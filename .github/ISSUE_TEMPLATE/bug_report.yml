@@ -1,0 +1,43 @@
+name: Bug report
+description: Something in the framework/engine behaves incorrectly
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. For questions about *using* the template, prefer Discussions.
+        Please confirm this is a defect in the engine/tooling, not a fill-in `TODO(template)` gap.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you observe, and what did you expect instead?
+      placeholder: cy.apiRequest with `validate` throws even though the body matches the schema...
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: A minimal spec or the exact commands.
+      placeholder: |
+        1. npm run scaffold -- widget
+        2. ...
+        3. npm test
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: Output of `node -v`, plus the Cypress version and your OS.
+      placeholder: Node 22.17.0, Cypress 15.18.1, macOS 15
+    validations:
+      required: true
+  - type: textarea
+    id: checks
+    attributes:
+      label: Diagnostics
+      description: Paste the relevant output of `npm run doctor`, `npm run typecheck`, and `npm run lint`.
+    validations:
+      required: false

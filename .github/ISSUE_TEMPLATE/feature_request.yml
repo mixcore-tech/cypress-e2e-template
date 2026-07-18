@@ -1,0 +1,29 @@
+name: Feature request
+description: Propose a change to the engine, tooling, or conventions
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Engine changes (`cypress/core/**`) require a framework-architect review — see CONTRIBUTING.md.
+        A missing capability is usually a new handler method, not a `cy.get` in a page object.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: The concrete testing scenario that is hard or impossible today.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Which layer does it touch (core / app / support / scaffold / CI), and how does it keep the layer contracts intact?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: false
