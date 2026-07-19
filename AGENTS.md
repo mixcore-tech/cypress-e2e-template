@@ -32,7 +32,8 @@ npm run todo                              # list all TODO(template) fill-in mark
 
 The demo suite is fully self-contained: `npm test` starts a zero-dependency local
 app (`scripts/demo-server.mjs` serving `demo/app/`), runs Cypress against it, and
-stops it — no third-party sites, deterministic and offline.
+stops it — no third-party sites, deterministic and offline. The demo app, its
+mock API, and which example proves what are documented in `docs/DEMO.md`.
 
 ## Guardrails that will FAIL your change if you break them
 

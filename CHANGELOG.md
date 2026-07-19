@@ -4,6 +4,26 @@ All notable changes to this template are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- Demo suite is now **self-hosted and deterministic**: `npm test` boots a bundled
+  local app (`demo/app/` + `scripts/demo-server.mjs`) instead of third-party
+  sites, and runs offline. `npm run demo` serves it for manual clicking.
+- Example page objects now select by **`data-cy`**, following the template's own
+  best practice; the demo UI was polished (shared nav, accessible login page).
+- `defaultCommandTimeout` lowered from 30s to 10s so a large global timeout no
+  longer masks slow selectors.
+
+### Added
+
+- **`AGENTS.md`** — a vendor-neutral AI-agent guide (replaces the Claude-specific
+  file), documenting the machine-enforced guardrails that keep the architecture
+  intact under agent-driven changes.
+- **`docs/DEMO.md`** — a dedicated guide to the demo app, its mock API, the
+  EX-1…EX-11 map, and how to run/delete it.
+
 ## [1.0.0] - 2026-07-19
 
 Initial release.
