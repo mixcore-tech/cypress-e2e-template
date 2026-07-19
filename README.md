@@ -15,7 +15,7 @@ A framework-agnostic **Cypress 15 + TypeScript** end-to-end test template by [Mi
 - **Allure reporting** built in, plus an **optional SQL Server module** (off by default) for DB verification/cleanup
 - **Deterministic, self-hosted demo** — `npm test` runs against a bundled local app (no third-party sites), so it's green offline and never breaks because someone else changed their UI
 
-Docs: [Architecture](docs/ARCHITECTURE.md) · [Adding a feature test](docs/ADDING-A-FEATURE-TEST.md) (the cookbook) · [Database module](docs/DATABASE-MODULE.md) · [Best practices](docs/BEST-PRACTICES.md) · [Agent guide](AGENTS.md) · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
+Docs: [Demo & examples](docs/DEMO.md) · [Architecture](docs/ARCHITECTURE.md) · [Adding a feature test](docs/ADDING-A-FEATURE-TEST.md) (the cookbook) · [Database module](docs/DATABASE-MODULE.md) · [Best practices](docs/BEST-PRACTICES.md) · [Agent guide](AGENTS.md) · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
 
 ## Built for AI agents
 
@@ -51,6 +51,8 @@ npm run cy:open
 # 4. Open the Allure report (needs Java)
 npm run report:allure
 ```
+
+The demo app and the 11 example tests (what each proves, the mock API, how to run and delete them) are documented in **[docs/DEMO.md](docs/DEMO.md)**.
 
 If step 2 is green, your setup works. Everything after this is wiring the template to YOUR app.
 
