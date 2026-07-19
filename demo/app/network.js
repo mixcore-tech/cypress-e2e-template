@@ -1,5 +1,5 @@
 // Demo network page — the button fires a GET the intercept example asserts on.
-const button = document.querySelector('.network-btn')
+const button = document.getElementById('get-comment')
 const result = document.getElementById('result')
 
 button.addEventListener('click', async () => {

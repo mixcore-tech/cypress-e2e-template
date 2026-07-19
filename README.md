@@ -59,7 +59,8 @@ If step 2 is green, your setup works. Everything after this is wiring the templa
 | Script                                                  | What it does                                                                                                                                 |
 | ------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | `npm test`                                              | Boot the bundled local demo app and run the demo example suite headless (deterministic, zero setup)                                          |
-| `npm run cy:open`                                       | Open the interactive runner on the demo environment                                                                                          |
+| `npm run demo`                                          | Serve the bundled demo app on `http://localhost:5188` to click through it in your browser                                                    |
+| `npm run cy:open`                                       | Open the interactive runner on the demo environment (boots the demo app first)                                                               |
 | `npm run open:local` / `npm run run:local`              | Open / run against YOUR app (`config/environments/local.json`)                                                                               |
 | `npm run run:spec -- <path>`                            | Run a single spec against YOUR app (local env), e.g. `npm run run:spec -- cypress/e2e/login.cy.ts` (use `run:spec:demo` for an example spec) |
 | `npm run report:allure`                                 | Serve the Allure report from the last run (needs Java)                                                                                       |

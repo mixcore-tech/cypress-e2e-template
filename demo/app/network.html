@@ -3,15 +3,28 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Demo App — Network</title>
+        <title>Cypress Demo App — Network</title>
         <link rel="stylesheet" href="/styles.css" />
     </head>
     <body>
-        <main class="card">
-            <h1>Network Requests</h1>
-            <button type="button" class="network-btn" data-cy="get-comment">Get comment</button>
-            <pre id="result" data-cy="result"></pre>
+        <header class="topbar">
+            <span class="brand">Cypress Demo App</span>
+            <nav aria-label="Primary">
+                <a href="/login">Login</a>
+                <a href="/tables">Tables</a>
+                <a href="/network" aria-current="page">Network</a>
+            </nav>
+        </header>
+
+        <main class="page">
+            <section class="card">
+                <h1>Network request</h1>
+                <p class="hint">Fetches a comment from the demo API — the intercept example asserts on the response.</p>
+                <button type="button" id="get-comment" data-cy="get-comment">Get comment</button>
+                <pre id="result" class="result" data-cy="result" aria-live="polite"></pre>
+            </section>
         </main>
+
         <script src="/network.js"></script>
     </body>
 </html>

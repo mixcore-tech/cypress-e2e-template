@@ -132,5 +132,10 @@ const server = http.createServer(async (req, res) => {
 })
 
 server.listen(PORT, () => {
-    console.log(`Demo app running at http://localhost:${PORT}`)
+    const base = `http://localhost:${PORT}`
+    console.log(`\n  Cypress Demo App is running — open any page:\n`)
+    console.log(`    Login    ${base}/login`)
+    console.log(`    Tables   ${base}/tables`)
+    console.log(`    Network  ${base}/network`)
+    console.log(`\n  This is the app the example suite runs against. Stop with Ctrl+C.\n`)
 })

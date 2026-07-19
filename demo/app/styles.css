@@ -1,5 +1,17 @@
 :root {
     color-scheme: light;
+    --bg: #f3f4f6;
+    --card: #ffffff;
+    --text: #111827;
+    --muted: #4b5563;
+    --border: #d1d5db;
+    --primary: #1d4ed8;
+    --primary-hover: #1e40af;
+    --bar: #111827;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 body {
@@ -9,26 +21,90 @@ body {
         -apple-system,
         'Segoe UI',
         Roboto,
+        Helvetica,
+        Arial,
         sans-serif;
-    background: #f4f5f7;
-    color: #1a1a1a;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+}
+
+/* Top bar + nav */
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.85rem 1.5rem;
+    background: var(--bar);
+    color: #ffffff;
+}
+
+.brand {
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.topbar nav {
+    display: flex;
+    gap: 1.25rem;
+}
+
+.topbar nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    opacity: 0.85;
+}
+
+.topbar nav a:hover,
+.topbar nav a[aria-current='page'] {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+/* Layout + card */
+.page {
+    display: flex;
+    justify-content: center;
+    padding: 3rem 1.5rem;
 }
 
 .card {
-    max-width: 34rem;
-    margin: 3rem auto;
+    width: 100%;
+    max-width: 26rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
     padding: 2rem;
-    background: #ffffff;
-    border: 1px solid #d0d5dd;
-    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(17, 24, 39, 0.08);
+}
+
+.card--wide {
+    max-width: 44rem;
 }
 
 h1,
 h2 {
-    margin-top: 0;
-    color: #1a1a1a;
+    margin: 0 0 0.75rem;
+    color: var(--text);
 }
 
+.hint {
+    margin: 0 0 1.5rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+code {
+    background: #eef2ff;
+    color: #3730a3;
+    padding: 0.05rem 0.35rem;
+    border-radius: 4px;
+    font-size: 0.85em;
+}
+
+/* Form */
 .field {
     margin-bottom: 1rem;
     display: flex;
@@ -36,48 +112,99 @@ h2 {
 }
 
 label {
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.3rem;
     font-weight: 600;
+    font-size: 0.9rem;
 }
 
 input {
-    padding: 0.5rem;
-    border: 1px solid #667085;
-    border-radius: 4px;
+    padding: 0.6rem 0.7rem;
+    border: 1px solid #9ca3af;
+    border-radius: 8px;
     font-size: 1rem;
 }
 
-button {
-    padding: 0.5rem 1rem;
-    background: #1f4b99;
+input:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 1px;
+    border-color: var(--primary);
+}
+
+button,
+.button-link {
+    display: inline-block;
+    margin-top: 0.25rem;
+    padding: 0.6rem 1.1rem;
+    background: var(--primary);
     color: #ffffff;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
     cursor: pointer;
 }
 
-button:hover {
-    background: #163a78;
+button:hover,
+.button-link:hover {
+    background: var(--primary-hover);
 }
 
-a {
-    color: #1f4b99;
+/* Flash / status messages */
+.flash {
+    margin: 1rem 0 0;
+    padding: 0;
+    font-weight: 600;
 }
 
+.flash:not(:empty) {
+    padding: 0.7rem 0.9rem;
+    border-radius: 8px;
+}
+
+.flash--success {
+    background: #ecfdf3;
+    color: #067647;
+}
+
+.flash--error {
+    background: #fef3f2;
+    color: #b42318;
+}
+
+/* Table */
 table {
     border-collapse: collapse;
     width: 100%;
 }
 
-th,
-td {
-    border: 1px solid #d0d5dd;
-    padding: 0.5rem 0.75rem;
+thead th {
+    background: #f9fafb;
     text-align: left;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--muted);
 }
 
-#flash {
+th,
+td {
+    border-bottom: 1px solid var(--border);
+    padding: 0.65rem 0.8rem;
+}
+
+tbody tr:hover {
+    background: #f9fafb;
+}
+
+/* Network result */
+.result {
     margin-top: 1rem;
-    font-weight: 600;
+    background: #0b1220;
+    color: #e5e7eb;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    min-height: 1.5rem;
 }

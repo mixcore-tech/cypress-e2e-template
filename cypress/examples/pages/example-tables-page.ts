@@ -12,7 +12,7 @@ import UITableHandler, { ColumnValuePair, ITableValidationPair } from '@core/ui/
  */
 export default class ExampleTablesPage {
     static locators = {
-        table: '#table1'
+        table: '[data-cy="users-table"]'
     }
 
     static tableColumnsHeaders = {

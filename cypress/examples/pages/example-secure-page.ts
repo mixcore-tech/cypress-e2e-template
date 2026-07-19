@@ -6,9 +6,9 @@ import UIElementsHandler from '@core/ui/ui-elements-handler'
  */
 export default class ExampleSecurePage {
     static locators = {
-        logoutButton: 'a[href="/logout"]',
-        flashMessage: '#flash',
-        pageHeader: 'h2'
+        logoutButton: '[data-cy="logout"]',
+        flashMessage: '[data-cy="flash"]',
+        pageHeader: '[data-cy="page-heading"]'
     }
 
     static verifyLoggedIn() {

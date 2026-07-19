@@ -3,15 +3,29 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Demo App — Secure Area</title>
+        <title>Cypress Demo App — Secure Area</title>
         <link rel="stylesheet" href="/styles.css" />
     </head>
     <body>
-        <main class="card">
-            <h2>Secure Area</h2>
-            <p id="flash" role="status">You logged into a secure area!</p>
-            <a href="/logout">Logout</a>
+        <header class="topbar">
+            <span class="brand">Cypress Demo App</span>
+            <nav aria-label="Primary">
+                <a href="/login">Login</a>
+                <a href="/tables">Tables</a>
+                <a href="/network">Network</a>
+            </nav>
+        </header>
+
+        <main class="page">
+            <section class="card" aria-labelledby="secure-heading">
+                <h2 id="secure-heading" data-cy="page-heading">Secure Area</h2>
+                <p id="flash" class="flash flash--success" data-cy="flash" role="status">
+                    You logged into a secure area!
+                </p>
+                <a class="button-link" href="/logout" data-cy="logout">Logout</a>
+            </section>
         </main>
+
         <script src="/secure.js"></script>
     </body>
 </html>

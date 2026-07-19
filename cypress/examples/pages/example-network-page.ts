@@ -9,7 +9,7 @@ import UIElementsHandler from '@core/ui/ui-elements-handler'
  */
 export default class ExampleNetworkPage {
     static locators = {
-        getCommentButton: '.network-btn'
+        getCommentButton: '[data-cy="get-comment"]'
     }
 
     static visit() {

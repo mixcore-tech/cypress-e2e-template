@@ -22,5 +22,6 @@ form.addEventListener('submit', async (event) => {
         location.assign('/secure')
     } else {
         flash.textContent = 'Your password is invalid!'
+        flash.className = 'flash flash--error'
     }
 })

@@ -17,12 +17,12 @@
     "node": ">=20"
   },
   "scripts": {
-    "demo:serve": "node scripts/demo-server.mjs",
+    "demo": "node scripts/demo-server.mjs",
     "cy:run:demo": "cypress run --env version=demo",
     "cy:open:demo": "cypress open --env version=demo",
-    "test": "start-server-and-test demo:serve http://localhost:5188 cy:run:demo",
-    "test:ci": "start-server-and-test demo:serve http://localhost:5188 \"cypress run --env version=demo --browser chrome\"",
-    "cy:open": "start-server-and-test demo:serve http://localhost:5188 cy:open:demo",
+    "test": "start-server-and-test demo http://localhost:5188 cy:run:demo",
+    "test:ci": "start-server-and-test demo http://localhost:5188 \"cypress run --env version=demo --browser chrome\"",
+    "cy:open": "start-server-and-test demo http://localhost:5188 cy:open:demo",
     "open:local": "cypress open --env version=local",
     "run:local": "cypress run --env version=local",
     "run:spec": "cypress run --env version=local --spec",

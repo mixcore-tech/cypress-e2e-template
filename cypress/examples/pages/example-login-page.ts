@@ -14,10 +14,10 @@ import UIElementsHandler from '@core/ui/ui-elements-handler'
  */
 export default class ExampleLoginPage {
     static locators = {
-        userNameField: '#username',
-        passwordField: '#password',
-        loginButton: 'button[type="submit"]',
-        flashMessage: '#flash'
+        userNameField: '[data-cy="username"]',
+        passwordField: '[data-cy="password"]',
+        loginButton: '[data-cy="login-button"]',
+        flashMessage: '[data-cy="flash"]'
     }
 
     static visit() {

@@ -3,25 +3,46 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Demo App — Login</title>
+        <title>Cypress Demo App — Login</title>
         <link rel="stylesheet" href="/styles.css" />
     </head>
     <body>
-        <main class="card">
-            <h1>Login</h1>
-            <form id="login-form" novalidate>
-                <div class="field">
-                    <label for="username">Username</label>
-                    <input id="username" name="username" type="text" autocomplete="username" />
-                </div>
-                <div class="field">
-                    <label for="password">Password</label>
-                    <input id="password" name="password" type="password" autocomplete="current-password" />
-                </div>
-                <button type="submit">Login</button>
-            </form>
-            <p id="flash" role="status" aria-live="polite"></p>
+        <header class="topbar">
+            <span class="brand">Cypress Demo App</span>
+            <nav aria-label="Primary">
+                <a href="/login" aria-current="page">Login</a>
+                <a href="/tables">Tables</a>
+                <a href="/network">Network</a>
+            </nav>
+        </header>
+
+        <main class="page">
+            <section class="card" aria-labelledby="login-heading">
+                <h1 id="login-heading">Sign in</h1>
+                <p class="hint">Use <code>tomsmith</code> / <code>SuperSecretPassword!</code></p>
+
+                <form id="login-form" novalidate>
+                    <div class="field">
+                        <label for="username">Username</label>
+                        <input id="username" name="username" type="text" data-cy="username" autocomplete="username" />
+                    </div>
+                    <div class="field">
+                        <label for="password">Password</label>
+                        <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            data-cy="password"
+                            autocomplete="current-password"
+                        />
+                    </div>
+                    <button type="submit" data-cy="login-button">Sign in</button>
+                </form>
+
+                <p id="flash" class="flash" data-cy="flash" role="status" aria-live="polite"></p>
+            </section>
         </main>
+
         <script src="/login.js"></script>
     </body>
 </html>
