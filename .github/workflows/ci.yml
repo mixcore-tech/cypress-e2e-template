@@ -52,7 +52,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       # cypress-io/github-action handles npm ci, Cypress binary caching and xvfb.
-      - uses: cypress-io/github-action@v6
+      - uses: cypress-io/github-action@v7
         with:
           # test:ci starts the bundled demo server (start-server-and-test), runs
           # Cypress against it in Chrome, and stops it. The browser is baked into
